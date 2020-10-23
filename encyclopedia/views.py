@@ -9,8 +9,12 @@ def index(request):
     })
 
 def wikipage(request, title):
-	return render(request, "encyclopedia/wikipage.html", {
-		"content": util.get_entry(title),
-		"title": title.upper()
-	})
-	
+	if util.get_entry(title) == None:
+		return render(request, "encyclopedia/error.html", {
+			"title": title.capitalize()
+		})
+	else:
+		return render(request, "encyclopedia/wikipage.html", {
+			"content": util.get_entry(title),
+			"title": title.upper()
+		})
